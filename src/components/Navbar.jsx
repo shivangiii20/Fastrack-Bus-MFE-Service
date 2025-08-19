@@ -15,6 +15,7 @@ import {
 import MenuIcon from '@mui/icons-material/Menu';
 import { Brightness4, Brightness7 } from '@mui/icons-material';
 import { useThemeMode } from '../ThemeContext';
+import { NavLink } from 'react-router-dom';
 
 const Navbar = () => {
   const theme = useTheme();
@@ -25,38 +26,75 @@ const Navbar = () => {
     setDrawerOpen(open);
   };
 
-  const drawerItems = ['Home', 'About', 'Booking']; // Add your pages here
+  const navLinks = [
+    { name: 'Home', path: '/' },
+    // { name: 'About', path: '/about' },
+    { name: 'Booking', path: '/booking' },
+    { name: 'Login', path: '/login' },
+    { name: 'Signup', path: '/signup' },
+  ];
 
   return (
     <>
-      <AppBar position="static"  sx={{
-    background: theme.palette.mode === 'dark'
-      ? '#121212' // or '#000' or 'theme.palette.background.default'
-      : 'linear-gradient(to right, #e9731fff, #e6c454ff)', // your light gradient
-    color: '#fff',
-    boxShadow: 'none',
-  }}>
+      <AppBar
+        position="fixed"
+        sx={{
+          background: theme.palette.mode === 'dark'
+            ? '#121212'
+            : 'linear-gradient(to right, #e9731fff, #e6c454ff)',
+          color: '#fff',
+          boxShadow: 'none',
+        }}
+      >
         <Toolbar sx={{ justifyContent: 'space-between' }}>
           {/* Brand Title */}
           <Typography variant="h6" fontWeight="bold">
             FastrackBus
           </Typography>
 
-          {/* Right Side: Menu Icon on small screen, Toggle on all */}
+          {/* Desktop Nav Links */}
+          <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 6, alignItems: 'center' }}>
+            {navLinks.map((item) => (
+              <NavLink
+                key={item.name}
+                to={item.path}
+                style={({ isActive }) => ({
+                  textDecoration: 'none',
+                  color: isActive ? '#fff' : '#f1f1f1',
+                  borderBottom: isActive ? '2px solid #fff' : 'none',
+                  paddingBottom: '4px',
+                  fontWeight: isActive ? 'bold' : 'normal',
+                  
+                })}
+              >
+
+
+                <Typography
+        sx={{
+          fontSize: { xs: '1rem', md: '1.5rem' }, // responsive font size
+          
+        }}
+      >
+        {item.name}
+      </Typography>
+              </NavLink>
+            ))}
+          </Box>
+
+          {/* Right Icons */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-            {/* Dark mode toggle */}
             <Tooltip title={`Switch to ${mode === 'light' ? 'dark' : 'light'} mode`}>
               <IconButton color="inherit" onClick={toggleTheme}>
                 {theme.palette.mode === 'dark' ? <Brightness7 /> : <Brightness4 />}
               </IconButton>
             </Tooltip>
 
-            {/* Hamburger icon (visible on small screens) */}
+            {/* Hamburger menu for mobile */}
             <IconButton
               color="inherit"
               edge="end"
               onClick={toggleDrawer(true)}
-              sx={{ display: { xs: 'inline-flex', md: 'none' } }}
+              sx={{ display: { xs: 'inline-flex', md: 'none',  }, }}
             >
               <MenuIcon />
             </IconButton>
@@ -64,18 +102,18 @@ const Navbar = () => {
         </Toolbar>
       </AppBar>
 
-      {/* Drawer for small screens */}
+      {/* Drawer for Mobile View */}
       <Drawer anchor="right" open={drawerOpen} onClose={toggleDrawer(false)}>
         <Box
-          sx={{ width: 200 }}
+          sx={{ width: 220 }}
           role="presentation"
           onClick={toggleDrawer(false)}
           onKeyDown={toggleDrawer(false)}
         >
           <List>
-            {drawerItems.map((text, index) => (
-              <ListItem button key={index}>
-                <ListItemText primary={text} />
+            {navLinks.map((item) => (
+              <ListItem button key={item.name} component={NavLink} to={item.path}>
+                <ListItemText primary={item.name} />
               </ListItem>
             ))}
           </List>

@@ -285,23 +285,128 @@ const Home = () => {
           </Container>
         </Box>
       </motion.div>
+      <br />
+      <br />
+      <br />
 
       {/* Feature Cards Section */}
+      <Box
+        sx={{
+          pt: 8,
+          pb: 6,
+          px: 2,
+          backgroundColor:
+            theme.palette.mode === "dark" ? "#060606ff" : "#ffffff",
+          transition: "background-color 0.3s easeOut",
+        }}
+      >
+        {/* Section Heading */}
+        <Typography
+          variant="h4"
+          fontWeight="bold"
+          textAlign="center"
+          sx={{
+            mb: 4,
+            background: "linear-gradient(to right, #e94d0bff, #eeb899ff)",
+            WebkitBackgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+          }}
+        >
+          Why Choose Fastrack Bus?
+        </Typography>
+
+        {/* Feature Cards Grid */}
+        <Box
+          sx={{
+            display: "grid",
+            gridTemplateColumns: {
+              xs: "1fr",
+              sm: "1fr 1fr",
+              md: "1fr 1fr 1fr 1fr",
+            },
+            gap: 3,
+          }}
+        >
+          {[
+            { icon: <FaBusAlt size={30} />, title: "Modern Buses" },
+            { icon: <FaMapMarkedAlt size={30} />, title: "Live Tracking" },
+            { icon: <FaMobileAlt size={30} />, title: "Easy Booking" },
+            { icon: <FaClock size={30} />, title: "On-Time Departure" },
+            { icon: <FaWallet size={30} />, title: "Affordable Fares" },
+            { icon: <FaShieldAlt size={30} />, title: "Safe & Secure" },
+            { icon: <FaStar size={30} />, title: "Top Rated Service" },
+            { icon: <FaUserFriends size={30} />, title: "24/7 Support" },
+          ].map((card, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: false, amount: 0.8 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              style={{ width: "100%" }}
+            >
+              <Box
+                sx={{
+                  background: "linear-gradient(to right, #e9731fff, #e6c454ff)",
+                  color: "#fff",
+                  borderRadius: 3,
+                  textAlign: "center",
+                  px: 3,
+                  py: 4,
+                  display: "flex",
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  boxShadow: "0 8px 24px rgba(0,0,0,0.2)",
+                  transition: "transform 0.3s ease",
+                  "&:hover": {
+                    transform: "scale(1.05)",
+                    background:
+                      "linear-gradient(to right, #fcaa25ff, #ed7b34ff)",
+                  },
+                }}
+              >
+                <Box
+                  sx={{
+                    mb: 2,
+                    backgroundColor: "rgba(255,255,255,0.2)",
+                    p: 2,
+                    borderRadius: "50%",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                  }}
+                >
+                  {card.icon}
+                </Box>
+                <Typography variant="subtitle1" fontWeight="bold">
+                  {card.title}
+                </Typography>
+              </Box>
+            </motion.div>
+          ))}
+        </Box>
+      </Box>
+
+      <br />
+      <br />
+      <br />
+
+      {/* Routes Section */}
       <motion.div
         initial={{ opacity: 0, y: 60 }}
         whileInView={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: "easeIn" }}
-        viewport={{ once: false, amount: 0.4 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        viewport={{ once: false, amount: 0.2 }}
       >
         <Box
           sx={{
-            mt: 0,
             pt: 8,
             pb: 6,
             px: 2,
             backgroundColor:
-              theme.palette.mode === "dark" ? "#060606ff" : "#ffffff",
-            transition: "background-color 0.3s ease-in-out",
+              theme.palette.mode === "dark" ? "#0b0b0b" : "#fafafa",
+            transition: "background-color 0.3s easeOut",
           }}
         >
           <Typography
@@ -309,13 +414,13 @@ const Home = () => {
             fontWeight="bold"
             textAlign="center"
             sx={{
-              mb: 4,
-              background: "linear-gradient(to right, #e94d0bff, #eeb899ff)",
+              mb: 5,
+              background: "linear-gradient(to right, #eb9030ff, #eeb899ff)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
           >
-            Why Choose Fastrack Bus?
+            Popular Bus Routes
           </Typography>
 
           <Box
@@ -326,172 +431,85 @@ const Home = () => {
                 sm: "1fr 1fr",
                 md: "1fr 1fr 1fr 1fr",
               },
-              gap: 3,
+              gap: 4,
             }}
           >
-            {[
-              { icon: <FaBusAlt size={30} />, title: "Modern Buses" },
-              { icon: <FaMapMarkedAlt size={30} />, title: "Live Tracking" },
-              { icon: <FaMobileAlt size={30} />, title: "Easy Booking" },
-              { icon: <FaClock size={30} />, title: "On-Time Departure" },
-              { icon: <FaWallet size={30} />, title: "Affordable Fares" },
-              { icon: <FaShieldAlt size={30} />, title: "Safe & Secure" },
-              { icon: <FaStar size={30} />, title: "Top Rated Service" },
-              { icon: <FaUserFriends size={30} />, title: "24/7 Support" },
-            ].map((card, index) => (
-              <motion.div
+            {routesData.map((route, index) => (
+              <Link
                 key={index}
-                whileHover={{ scale: 1.05 }}
-                transition={{ type: "spring", stiffness: 300 }}
+                to={route.link}
+                style={{ textDecoration: "none" }}
               >
                 <Box
                   sx={{
+                    borderRadius: 4,
+                    overflow: "hidden",
                     background:
                       "linear-gradient(to right, #e9731fff, #e6c454ff)",
                     color: "#fff",
-                    borderRadius: 3,
-                    textAlign: "center",
-                    px: 3,
-                    py: 4,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    justifyContent: "center",
                     boxShadow: "0 8px 24px rgba(0,0,0,0.2)",
                     transition: "transform 0.3s ease",
                     "&:hover": {
+                      transform: "scale(1.05)",
                       background:
-                        "linear-gradient(to right, #fcaa25ff, #ed7b34ff)",
+                        "linear-gradient(to right, #fcaa25ff, #ed7b34ff) ",
                     },
                   }}
                 >
                   <Box
+                    component="img"
+                    src={route.image}
+                    alt={route.route}
                     sx={{
-                      mb: 2,
-                      backgroundColor: "rgba(255,255,255,0.2)",
-                      p: 2,
-                      borderRadius: "50%",
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
+                      width: "100%",
+                      height: 180,
+                      objectFit: "cover",
                     }}
-                  >
-                    {card.icon}
+                  />
+                  <Box sx={{ p: 2 }}>
+                    <Typography variant="h6" fontWeight="bold" mb={1}>
+                      {route.route}
+                    </Typography>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        gap: 1,
+                        fontSize: 14,
+                      }}
+                    >
+                      <Box
+                        sx={{ display: "flex", alignItems: "center", gap: 1 }}
+                      >
+                        <FaClock />
+                        {route.duration}
+                      </Box>
+                      <Box
+                        sx={{ display: "flex", alignItems: "center", gap: 1 }}
+                      >
+                        <FaRupeeSign />
+                        {route.fare}
+                      </Box>
+                      <Box
+                        sx={{ display: "flex", alignItems: "center", gap: 1 }}
+                      >
+                        <FaBus />
+                        {route.type}
+                      </Box>
+                      <Box
+                        sx={{ display: "flex", alignItems: "center", gap: 1 }}
+                      >
+                        <FaRoad />
+                        Fast & Comfortable
+                      </Box>
+                    </Box>
                   </Box>
-                  <Typography variant="subtitle1" fontWeight="bold">
-                    {card.title}
-                  </Typography>
                 </Box>
-              </motion.div>
+              </Link>
             ))}
           </Box>
         </Box>
       </motion.div>
-
-      {/* Routes Section */}
-      <motion.div
-  initial={{ opacity: 0, y: 60 }}
-  whileInView={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.8, ease: "easeOut" }}
-  viewport={{ once: false, amount: 0.2 }}
->
-  <Box
-    sx={{
-      pt: 8,
-      pb: 6,
-      px: 2,
-      backgroundColor:
-        theme.palette.mode === "dark" ? "#0b0b0b" : "#fafafa",
-      transition: "background-color 0.3s ease-in-out",
-    }}
-  >
-    <Typography
-      variant="h4"
-      fontWeight="bold"
-      textAlign="center"
-      sx={{
-        mb: 5,
-        background: "linear-gradient(to right, #eb9030ff, #eeb899ff)",
-        WebkitBackgroundClip: "text",
-        WebkitTextFillColor: "transparent",
-      }}
-    >
-      Popular Bus Routes
-    </Typography>
-
-    <Box
-      sx={{
-        display: "grid",
-        gridTemplateColumns: {
-          xs: "1fr",
-          sm: "1fr 1fr",
-          md: "1fr 1fr 1fr 1fr",
-        },
-        gap: 4,
-      }}
-    >
-      {routesData.map((route, index) => (
-        <Link key={index} to={route.link} style={{ textDecoration: "none" }}>
-          <Box
-            sx={{
-              borderRadius: 4,
-              overflow: "hidden",
-              background:"linear-gradient(to right, #e9731fff, #e6c454ff)" ,
-              color: "#fff",
-              boxShadow: "0 8px 24px rgba(0,0,0,0.2)",
-              transition: "transform 0.3s ease",
-              "&:hover": {
-                transform: "scale(1.05)",
-                background: "linear-gradient(to right, #fcaa25ff, #ed7b34ff) ",
-              },
-            }}
-          >
-            <Box
-              component="img"
-              src={route.image}
-              alt={route.route}
-              sx={{
-                width: "100%",
-                height: 180,
-                objectFit: "cover",
-              }}
-            />
-            <Box sx={{ p: 2 }}>
-              <Typography variant="h6" fontWeight="bold" mb={1}>
-                {route.route}
-              </Typography>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "column",
-                  gap: 1,
-                  fontSize: 14,
-                }}
-              >
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                  <FaClock />
-                  {route.duration}
-                </Box>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                  <FaRupeeSign />
-                  {route.fare}
-                </Box>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                  <FaBus />
-                  {route.type}
-                </Box>
-                <Box sx={{ display: "flex", alignItems: "center", gap: 1 }}>
-                  <FaRoad />
-                  Fast & Comfortable
-                </Box>
-              </Box>
-            </Box>
-          </Box>
-        </Link>
-      ))}
-    </Box>
-  </Box>
-</motion.div>
     </>
   );
 };

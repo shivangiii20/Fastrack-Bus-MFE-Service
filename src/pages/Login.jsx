@@ -24,10 +24,15 @@ const Login = () => {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 40 }}   // fade & slide in
+      initial={{ opacity: 0, y: 40 }} // fade & slide in
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      style={{ display: "flex", justifyContent: "center", alignItems: "center", minHeight: "100vh" }}
+      style={{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        minHeight: "100vh",
+      }}
     >
       <Box
         display="flex"
@@ -37,15 +42,34 @@ const Login = () => {
         gap={4}
         sx={{ width: "90%", maxWidth: "1200px" }}
       >
-        {/* Left Side - Login Card */}
+        {/* Animation FIRST on small/medium, SECOND on large */}
+        <Box
+          flex={1}
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          maxWidth="500px"
+          sx={{
+            order: { xs: 1, md: 2 }, // ✅ animation first on mobile/tablet, second on desktop
+          }}
+        >
+          <Lottie
+            animationData={loginanimation}
+            loop={true}
+            style={{ width: "100%", maxWidth: "400px" }}
+          />
+        </Box>
+
+        {/* Login Card */}
         <Paper
           elevation={6}
           sx={{
-        p: { xs: 4, lg: 6 },  // extra padding on large screens
+            p: { xs: 4, lg: 6 },
             borderRadius: "20px",
             flex: 1,
-            maxWidth: { xs: 400, lg: 600 }, // normal on small, bigger on large
+            maxWidth: { xs: 400, lg: 600 },
             width: "100%",
+            order: { xs: 2, md: 1 }, // ✅ login card second on mobile, first on desktop
           }}
         >
           <Typography
@@ -54,7 +78,7 @@ const Login = () => {
             gutterBottom
             sx={{
               textAlign: "center",
-              background:  "linear-gradient(to right, #eb9030ff, #eeb899ff)",
+              background: "linear-gradient(to right, #eb9030ff, #eeb899ff)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
             }}
@@ -94,18 +118,16 @@ const Login = () => {
                 py: 1.5,
                 borderRadius: "12px",
                 background: "linear-gradient(to right, #e9731fff, #e6c454ff)",
-                "&:hover": { background: "linear-gradient(to right, #fcaa25ff, #ec6009ff)" },
+                "&:hover": {
+                  background:
+                    "linear-gradient(to right, #fcaa25ff, #ec6009ff)",
+                },
               }}
             >
               Login
             </Button>
           </form>
         </Paper>
-
-        {/* Right Side - Animation */}
-        <Box flex={1} display="flex" justifyContent="center" alignItems="center" maxWidth="500px">
-          <Lottie animationData={loginanimation} loop={true} style={{ width: "100%", maxWidth: "400px" }} />
-        </Box>
       </Box>
     </motion.div>
   );
