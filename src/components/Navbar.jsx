@@ -40,7 +40,7 @@ const Navbar = () => {
         position="fixed"
         sx={{
           background: theme.palette.mode === 'dark'
-            ? '#121212'
+            ?  'linear-gradient(to right, #e9731fff, #e6c454ff)'
             : 'linear-gradient(to right, #e9731fff, #e6c454ff)',
           color: '#fff',
           boxShadow: 'none',

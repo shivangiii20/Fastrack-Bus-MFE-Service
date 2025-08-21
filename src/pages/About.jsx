@@ -43,7 +43,7 @@ const About = () => {
             sx={{
               background: isDark
                 ? 'linear-gradient(to right, #ed700aff, #f3ae60ff)'
-                : 'linear-gradient(to right, #f15f0bff, #f74200ff)',
+                : 'white',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               mb: 2,
@@ -55,7 +55,7 @@ const About = () => {
 
           <Typography
             variant="h6"
-            color={isDark ? '#ccc' : '#333'}
+            color={isDark ? '#ccc' : '#ffffffff'}
             sx={{
               fontWeight: 400,
               fontSize: { xs: '1rem', sm: '1.1rem' },
